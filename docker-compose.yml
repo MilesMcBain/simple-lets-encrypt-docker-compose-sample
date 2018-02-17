@@ -8,21 +8,11 @@ services:
     environment:
       NODE_ENV: production
       url: https://mcbain.xyz
-      database__client: mysql
-      database__connection__host: mysqldb
-      database__connection__user: root
-      database__connection__password: somepassword 
-      database__connection__database: ghost
       VIRTUAL_HOST: mcbain.xyz
       LETSENCRYPT_HOST: mcbain.xyz
       LETSENCRYPT_EMAIL: miles.mcbain@gmail.com
     volumes:
-      - /var/ghost/data:/var/lib/ghost/content
-
-  mysqldb:
-    image: mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: somepassword
+      - ~/data/ghost:/var/lib/ghost/content
 
   nginx-proxy:
     image: jwilder/nginx-proxy
