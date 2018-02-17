@@ -2,15 +2,24 @@ version: '2'
 
 services:
 
-  wordpress:
-    image: wordpress:4.7-apache
+  ghost:
+    image: ghost:1-alpine
+    restart: always
     environment:
-      WORDPRESS_DB_PASSWORD: somepassword
-      VIRTUAL_HOST: exampledomain.com
-      LETSENCRYPT_HOST: exampledomain.com
-      LETSENCRYPT_EMAIL: admin@exampledomain.com
+      NODE_ENV: production
+      url: https://mcbain.xyz
+      database__client: mysql
+      database__connection__host: mysqldb
+      database__connection__user: root
+      database__connection__password: somepassword 
+      database__connection__database: ghost
+      VIRTUAL_HOST: mcbain.xyz
+      LETSENCRYPT_HOST: mcbain.xyz
+      LETSENCRYPT_EMAIL: miles.mcbain@gmail.com
+    volumes:
+      - /var/ghost/data:/var/lib/ghost/content
 
-  mysql:
+  mysqldb:
     image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: somepassword
